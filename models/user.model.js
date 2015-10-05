@@ -37,12 +37,10 @@ var UserSchema = new Schema({
   email   : {
     type    : String,
     unique  : true,
-    required: true,
     validate: emailValidator
   },
   name    : {
     type    : String,
-    required: true,
     validate: nameValidator
   },
   password: {
@@ -50,6 +48,10 @@ var UserSchema = new Schema({
     validate: passwordValidator
   }
 });
+
+UserSchema.path('name').required(true, 'name is required');
+UserSchema.path('password').required(true, 'password is required');
+UserSchema.path('email').required(true, 'email is required');
 
 /* ===============
  Methods

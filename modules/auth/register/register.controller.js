@@ -1,4 +1,5 @@
-var User = require(require('app-root-path') + '/models/user.model');
+var User = require(require('app-root-path') + '/models/user.model'),
+  createJwt = require(require('app-root-path') + '/helpers/jwt-creator');
 
 /**
  *
@@ -6,19 +7,25 @@ var User = require(require('app-root-path') + '/models/user.model');
  * @param res
  * @constructor
  */
-function RegisterController( req, res ) {
+function RegisterController(req, res) {
   var body = req.body;
 
   new User({
-    email   : body.email,
-    name    : body.name,
+    email: body.email,
+    name: body.name,
     password: body.password
-  }).save(function( err, user ) {
+  }).save(function(err, user) {
 
-      if( err ) return res.status(400).json(err.errors);
+    if (err) return res.status(400).json(err.errors);
 
-      return res.status(200).json(user);
+    var token = createJwt(user.id);
+
+    return res.status(200).json({
+      user: user,
+      token: token
     });
+
+  });
 
 }
 
