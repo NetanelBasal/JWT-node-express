@@ -7,7 +7,7 @@
 POST http://localhost:3000/auth/login with params:
 {password: String, email: String [valid-email]}
 
-POST http://localhost:3000/auth/register with parmas: 
+POST http://localhost:3000/auth/register with params: 
 {name: String, password: String [1-6], email: String [valid-email]}
 ```
 
